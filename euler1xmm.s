@@ -28,9 +28,10 @@ while:
 	roundsd	$3, %xmm5, %xmm6# xmm6 = t5
 	subsd	%xmm4, %xmm3	# xmm3 = q3 - t3
 	subsd	%xmm6, %xmm5	# xmm5 = q5 - t5
-	mulsd	%xmm3, %xmm5
-	cmpeqsd	%xmm2, %xmm5	# xmm5 = !nz
-	movd	%xmm5, %rax	# rax = !nz
+	movsd	%xmm5, %xmm8
+	mulsd	%xmm3, %xmm8
+	cmpeqsd	%xmm2, %xmm8	# xmm8 = !nz
+	movd	%xmm8, %rax	# rax = !nz
 	andl	$1, %eax	# eax = !nz
 	xorps	%xmm7, %xmm7
 	cvtsi2sdl	%eax, %xmm7	# xmm7 = !nz
