@@ -1,8 +1,8 @@
 	.section	__TEXT,__text,regular,pure_instructions
 	.section	__TEXT,__literal8,8byte_literals
 	.align	3
-M1:
-	.quad	-4616189618054758400    ## double -1
+D1:
+	.quad	0x3ff0000000000000    ## double 1
 D3:
 	.quad	4613937818241073152     ## double 3
 D5:
@@ -15,7 +15,8 @@ _euler1xmm:                             ## @euler1xmm
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movsd	%xmm0, %xmm1	# xmm1 = i
-	addsd	M1(%rip), %xmm1
+	subsd	D1(%rip), %xmm1
+	movsd	D1(%rip), %xmm11
 	xorps	%xmm0, %xmm0	# xmm0 = r
 	xorps	%xmm2, %xmm2	# xmm2 = 0
 	.align	4, 0x90
@@ -31,13 +32,10 @@ while:
 	movsd	%xmm5, %xmm8
 	mulsd	%xmm3, %xmm8
 	cmpeqsd	%xmm2, %xmm8	# xmm8 = !nz
-	movd	%xmm8, %rax	# rax = !nz
-	andl	$1, %eax	# eax = !nz
-	xorps	%xmm7, %xmm7
-	cvtsi2sdl	%eax, %xmm7	# xmm7 = !nz
-	mulsd	%xmm1, %xmm7	# xmm7 = i * !nz
-	addsd	%xmm7, %xmm0	# xmm0 = r += i * !nz
-	addsd	M1(%rip), %xmm1	# xmm1 = --i
+	andpd	%xmm11, %xmm8
+	mulsd	%xmm1, %xmm8	# xmm8 = i * !nz
+	addsd	%xmm8, %xmm0	# xmm0 = r += i * !nz
+	subsd	D1(%rip), %xmm1	# xmm1 = --i
 	ucomisd	%xmm2, %xmm1	# i > 0
 	ja	while
 ## BB#2:
