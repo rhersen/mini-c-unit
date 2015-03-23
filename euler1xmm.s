@@ -20,7 +20,7 @@ _euler1xmm:                             ## @euler1xmm
 	movsd	D3(%rip), %xmm12
 	movhpd	D5(%rip), %xmm12
 	xorps	%xmm0, %xmm0	# xmm0 = r
-	vpermilpd $0, %xmm0, %xmm2	# xmm2 = 0
+	vpermilpd $0, %xmm0, %xmm2	# xmm2 = 0,0
 	.align	4, 0x90
 while:
 	vpermilpd $0, %xmm1, %xmm3
@@ -30,8 +30,7 @@ while:
 	vpermilpd $1, %xmm3, %xmm8
 	mulsd	%xmm3, %xmm8
 	cmpeqsd	%xmm2, %xmm8	# xmm8 = !nz
-	andpd	%xmm11, %xmm8
-	mulsd	%xmm1, %xmm8	# xmm8 = i * !nz
+	andpd	%xmm1, %xmm8	# xmm8 = i * !nz
 	addsd	%xmm8, %xmm0	# xmm0 = r += i * !nz
 	subsd	D1(%rip), %xmm1	# xmm1 = --i
 	ucomisd	%xmm2, %xmm1	# i > 0
