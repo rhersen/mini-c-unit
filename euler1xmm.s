@@ -16,19 +16,18 @@ _euler1xmm:                             ## @euler1xmm
 	movq	%rsp, %rbp
 	movsd	%xmm0, %xmm1	# xmm1 = i
 	subsd	D1(%rip), %xmm1
-	movsd	D1(%rip), %xmm11
+	vpermilpd $0, D1(%rip), %xmm11
 	movsd	D3(%rip), %xmm12
 	movhpd	D5(%rip), %xmm12
 	xorps	%xmm0, %xmm0	# xmm0 = r
-	xorps	%xmm2, %xmm2	# xmm2 = 0
+	vpermilpd $0, %xmm0, %xmm2	# xmm2 = 0
 	.align	4, 0x90
 while:
 	vpermilpd $0, %xmm1, %xmm3
 	divpd	%xmm12, %xmm3	# xmm3 = q3,q5
 	roundpd	$3, %xmm3, %xmm4# xmm4 = t3,t5
 	subpd	%xmm4, %xmm3	# xmm3 = q3-t3,q5-t5
-	vpermilpd $1, %xmm3, %xmm5
-	movsd	%xmm5, %xmm8
+	vpermilpd $1, %xmm3, %xmm8
 	mulsd	%xmm3, %xmm8
 	cmpeqsd	%xmm2, %xmm8	# xmm8 = !nz
 	andpd	%xmm11, %xmm8
