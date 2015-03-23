@@ -27,11 +27,10 @@ while:
 	divpd	%xmm12, %xmm3	# xmm3 = q3,q5
 	roundpd	$3, %xmm3, %xmm4# xmm4 = t3,t5
 	cmpeqpd %xmm4, %xmm3	# xmm3 = q3-t3,q5-t5
-	vpermilpd $1, %xmm3, %xmm8
-	addsd	%xmm3, %xmm8
-	cmpneqsd %xmm2, %xmm8	# xmm8 = !nz
-	andpd	%xmm1, %xmm8	# xmm8 = i * !nz
-	addsd	%xmm8, %xmm0	# xmm0 = r += i * !nz
+	haddpd	%xmm3, %xmm3
+	cmpneqsd %xmm2, %xmm3	# xmm8 = !nz
+	andpd	%xmm1, %xmm3	# xmm8 = i * !nz
+	addsd	%xmm3, %xmm0	# xmm0 = r += i * !nz
 	subsd	D1(%rip), %xmm1	# xmm1 = --i
 	ucomisd	%xmm2, %xmm1	# i > 0
 	ja	while
