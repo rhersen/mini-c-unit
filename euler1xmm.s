@@ -26,7 +26,7 @@ while:
 	vpermilpd $0, %xmm1, %xmm3
 	divpd	%xmm12, %xmm3	# xmm3 = q3,q5
 	roundpd	$3, %xmm3, %xmm4# xmm4 = t3,t5
-	subpd	%xmm4, %xmm3	# xmm3 = q3-t3,q5-t5
+	cmpneqpd %xmm4, %xmm3	# xmm3 = q3=t3,q5=t5
 	vpermilpd $1, %xmm3, %xmm8
 	mulsd	%xmm3, %xmm8
 	cmpeqsd	%xmm2, %xmm8	# xmm8 = !nz
