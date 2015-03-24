@@ -1,24 +1,41 @@
 	.intel_syntax noprefix
 	.section	__TEXT,__text,regular,pure_instructions
-	.globl	_value
-	.align	4, 0x90
-_value:                                 ## @value
-	mov	rcx, rdx
-	mov	r10, 0
+
+mod:
 
 	mov	rdx, 0
 	mov	rax, rdi
 	div	rsi
 	cmp	rdx, 0
-	cmove	r10, rdi
+	mov	rax, 0
+	cmove	rax, rdi
+	ret
 
-	mov	rdx, 0
-	mov	rax, rdi
-	div	rcx
-	cmp	rdx, 0
-	cmove	r10, rdi
+	.globl	_value
+	.align	4, 0x90
 
-	mov	rax, r10
+_value:                                 ## @value
+	push	r12
+	push	r13
+	push	r14
+	push	r15
+	mov	r12, rdi
+	mov	r13, rsi
+	mov	r14, rdx
+
+	call	mod
+	mov	r15, rax
+
+	mov	rdi, r12
+	mov	rsi, r14
+	call	mod
+	or	rax, r15
+
+	pop	r15
+	pop	r14
+	pop	r13
+	pop	r12
+
 	ret
 
 	.globl	_euler1intel
