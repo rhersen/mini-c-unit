@@ -3,38 +3,45 @@
 	.globl	_value
 	.align	4, 0x90
 _value:                                 ## @value
-## BB#0:
-	push	rbp
-	mov	rbp, rsp
+	mov	rcx, rdx
+	mov	r10, 0
+
+	mov	rdx, 0
 	mov	rax, rdi
-	dec	rax
-	dec	rax
-	pop	rbp
+	div	rsi
+	cmp	rdx, 0
+	cmove	r10, rdi
+
+	mov	rdx, 0
+	mov	rax, rdi
+	div	rcx
+	cmp	rdx, 0
+	cmove	r10, rdi
+
+	mov	rax, r10
 	ret
 
 	.globl	_euler1intel
 	.align	4, 0x90
+
 _euler1intel:                           ## @euler1intel
-## BB#0:
-	push	rbp
-	mov	rbp, rsp
 	push	r14
 	push	rbx
 	mov	rbx, rdi
 	dec	rbx
-	xor	eax, eax
+	mov	r14, 0
 	.align	4, 0x90
-LBB1_1:                                 ## =>This Inner Loop Header: Depth=1
-	mov	r14, rax
+while:
 	mov	rdi, rbx
+	mov	rsi, 3
+	mov	rdx, 5
 	call	_value
-	add	rax, r14
+	add	r14, rax
 	dec	rbx
-	jne	LBB1_1
-## BB#2:
+	jne	while
+	mov	rax, r14
 	pop	rbx
 	pop	r14
-	pop	rbp
 	ret
 
 
