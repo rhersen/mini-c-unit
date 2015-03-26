@@ -17,12 +17,9 @@ _euler2intel:                           ## @euler2intel
 loop:
 	addsd	xmm0, xmm3
 
-	mov	xmm3, xmm2
-	addsd	xmm3, xmm1
-	mov	xmm1, xmm2
-	addsd	xmm1, xmm3
-	mov	xmm2, xmm1
-	addsd	xmm2, xmm3
+	vaddsd	xmm3, xmm1, xmm2
+	vaddsd	xmm1, xmm2, xmm3
+	vaddsd	xmm2, xmm3, xmm1
 
 	ucomisd	xmm3, xmm4
 	jb	loop
