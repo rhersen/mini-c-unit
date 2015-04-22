@@ -1,0 +1,30 @@
+double euler25(double digits)
+
+zero = one - one
+one = digits ÷ digits
+two = one + one
+four = two + two
+eight = four + four
+ten = eight + two
+limit = one
+
+i = one
+do:
+limit ×= ten
+i += one
+ucomisd i, digits
+jb do
+
+fib = one
+prev = zero
+i = one
+
+loop:
+i += one
+curr = fib
+fib += prev
+prev = curr
+ucomisd fib, limit
+jb loop
+
+return i
