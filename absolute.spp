@@ -1,0 +1,6 @@
+double absolute(double x)
+
+zero = x - x
+minusx = zero - x
+x ↾= minusx
+ret

@@ -1,0 +1,22 @@
+double euler1(double limit, double three, double five)
+
+one = three ÷ three
+zero = one - one
+
+sum = zero
+i = limit
+
+loop:
+quotient = i ÷ three
+rounded = roundsd(quotient, 3)
+isDivisibleByThree = quotient ≡ rounded
+quotient = i ÷ five
+rounded = roundsd(quotient, 3)
+isDivisibleByFive = quotient ≡ rounded
+isDivisible = isDivisibleByFive ∨ isDivisibleByThree
+term = isDivisible ∧ i
+sum += term
+i -= one
+i > zero ? loop
+
+return sum

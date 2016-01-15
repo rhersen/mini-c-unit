@@ -1,0 +1,36 @@
+double sine(double x, double limit)
+
+zero = x - x
+
+x ≠ zero ? run
+return zero
+
+run:
+one = x ÷ x
+two = one + one
+minus = one - two
+
+sign = minus
+i = one
+factorial = one
+term = x
+quotient = term
+sum = zero
+
+loop:
+sign ×= minus
+quotient ×= sign
+sum += quotient
+i += one
+factorial ×= i
+term ×= x
+i += one
+factorial ×= i
+term ×= x
+quotient = term ÷ factorial
+quotient > limit ? loop
+
+sign ×= minus
+quotient ×= sign
+sum += quotient
+return sum

@@ -1,0 +1,11 @@
+double cond(double x, double y)
+
+zero = x - x
+one = x ÷ x
+
+x ≤ y ? true
+
+return zero
+
+true:
+return one

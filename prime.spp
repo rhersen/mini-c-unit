@@ -1,0 +1,21 @@
+double euler7(double n, double one)
+
+limit = n
+sqrtsd limit, limit
+zero = vsubsd(one, one)
+i = one
+
+loop:
+addsd i, one
+isPrime = vcmpltsd(limit, i)
+andpd isPrime, one
+comisd isPrime, one
+je done
+quotient = vdivsd(n, i)
+rounded = roundsd(quotient, 3)
+comisd quotient, rounded
+jne loop
+
+done:
+n = isPrime
+ret

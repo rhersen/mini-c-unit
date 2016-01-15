@@ -1,0 +1,22 @@
+double euler7(double n, double one)
+
+i = one
+count = vsubsd(one, one)
+
+iLoop:
+addsd i, one
+j = one
+jLoop:
+addsd j, one
+quotient = vdivsd(i, j)
+rounded = roundsd(quotient, 3)
+comisd quotient, rounded
+jne jLoop
+isPrime = vcmpeqsd(i, j)
+andpd isPrime, one
+addsd count, isPrime
+comisd count, n
+jb iLoop
+
+n = i
+ret

@@ -3,17 +3,10 @@ double euler25(double digits)
 zero = one - one
 one = digits ÷ digits
 two = one + one
-four = two + two
-eight = four + four
-ten = eight + two
+three = one + two
+nine = three × three
+ten = nine + one
 limit = one
-
-i = one
-do:
-limit ×= ten
-i += one
-ucomisd i, digits
-jb do
 
 fib = one
 prev = zero
@@ -24,7 +17,11 @@ i += one
 curr = fib
 fib += prev
 prev = curr
-ucomisd fib, limit
-jb loop
+fib < ten ? loop
+curr ÷= ten
+fib ÷= ten
+prev ÷= ten
+digits -= one
+digits > one ? loop
 
 return i

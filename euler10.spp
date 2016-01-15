@@ -1,0 +1,31 @@
+double euler10(double n)
+
+one = n ÷ n
+zero = one - one
+
+limit = one
+i = one
+sum = zero
+
+iLoop:
+i += one
+j = one
+
+sqrtsd limit, i
+
+jLoop:
+j += one
+isPrime = j > limit
+prime = isPrime ∧ i
+prime ≠ zero ? done
+
+quotient = i ÷ j
+rounded = roundsd(quotient, 3)
+quotient ≠ rounded ? jLoop
+
+done:
+
+sum += prime
+i < n ? iLoop
+
+return sum

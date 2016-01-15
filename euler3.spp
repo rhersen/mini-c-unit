@@ -1,0 +1,13 @@
+double euler3(double n, double one)
+
+i = one
+
+loop:
+addsd i, one
+quotient = vdivsd(n, i)
+rounded = roundsd(quotient, 3)
+comisd quotient, rounded
+jne loop
+
+n = i
+ret

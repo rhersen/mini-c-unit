@@ -100,46 +100,72 @@ static void euler1gcc() {
   assertEqualsL(sum, 52499999925e7);
 }
 
-static double sqroot(double x) {
-  double guess;
-  double diff;
-  double sign;
-  double lower = 0;
-  double upper = x;
-  double less;
-
-  do {
-    guess = (lower + upper) * 0.5;
-    diff = guess * guess - x;
-    less = diff < 0 ? 1.0 : 0.0;
-
-    lower += less * (guess - lower);
-    upper += (1 - less) * (guess - upper);
-  } while ((1 - 2 * less) * diff > 1e-15);
-
-  return guess;
-}
-
 long euler1asm(long limit);
-double euler1xmm(double limit);
+double euler1(double limit, double three, double five);
+/* double euler3(double limit, double one, double sum, double rounded, double quotient); */
+double euler6(double limit);
+double euler7(double limit);
+double euler10(double n);
+double euler25(double n);
+double sine(double x, double limit);
+double cond(double x, double y);
 
 int main(void) {
   struct timeval start;
   gettimeofday(&start, 0);
 
-  /* assertEqualsI(256 * 256, 65536); */
-  /* assertEqualsD(sqroot(3), sqrt(3), 15); */
-  /* assertEqualsD(sqroot(2), sqrt(2), 15); */
-  /* assertTrue(1 + 1 == 2); */
-  /* assertFalse(1 + 1 == 3); */
+  assertEqualsD(euler1(999, 3, 5), 233168, 6);
+  assertEqualsD(euler6(10), 2640, 8);
+  /* assertEqualsD(euler7(2, 1), 1, 6); */
+  /* assertEqualsD(euler7(3, 1), 1, 6); */
+  /* assertEqualsD(euler7(4, 1), 0, 6); */
+  /* assertEqualsD(euler7(5, 1), 1, 6); */
+  /* assertEqualsD(euler7(9, 1), 0, 6); */
+  /* assertEqualsD(euler7(13, 1), 1, 6); */
+  /* assertEqualsD(euler7(104743, 1), 1, 6); */
+  /* assertEqualsD(euler7(295075153, 1), 1, 6); */
+  /* assertEqualsD(euler7(10967535067, 1), 0, 6); */
+  
+  assertEqualsD(euler7(1), 2, 6);
+  assertEqualsD(euler7(2), 3, 6);
+  assertEqualsD(euler7(3), 5, 6);
+  assertEqualsD(euler7(6), 13, 6);
+  assertEqualsD(euler7(10001), 104743, 6);
 
-  /* xchgl(); */
-  /* movzFillsWithZeroes(); */
-  /* movsFillsWithOnes(); */
-  /* div(); */
-  //euler1gcc();
-  assertEqualsD(euler1xmm(1e3), 233168, 6);
+  assertEqualsD(euler10(4), 5, 6);
+  assertEqualsD(euler10(10), 17, 6);
+  /* assertEqualsD(euler10(2e6), 142913828922, 12); */
 
+  assertEqualsD(euler25(2), 7, 6);
+  assertEqualsD(euler25(3), 12, 6);
+  assertEqualsD(euler25(10), 45, 6);
+  assertEqualsD(euler25(100), 476, 6);
+  assertEqualsD(euler25(200), 954, 6);
+  assertEqualsD(euler25(300), 1433, 6);
+  assertEqualsD(euler25(1000), 4782, 6);
+
+  assertEqualsD(sine(1, 1e-15), 0.841470984807897, 15);
+  assertEqualsD(sine(0.5, 1e-15), 0.479425538604203, 15);
+  assertEqualsD(sine(0, 1e-15), 0, 15);
+  assertEqualsD(sine(3.141592653589793/2, 1e-15), 1, 15);
+  assertEqualsD(sine(3.141592653589793, 1e-15), 0, 15);
+
+  assertEqualsD(cond(1, 2), 1, 9);
+
+  /* assertEqualsD(euler3(3, 1, 0, 0, 0), 3, 6); */
+  /* assertEqualsD(euler3(4, 1, 0, 0, 0), 2, 6); */
+  /* assertEqualsD(euler3(5, 1, 0, 0, 0), 5, 6); */
+  /* assertEqualsD(euler3(6, 1, 0, 0, 0), 2, 6); */
+  /* assertEqualsD(euler3(9, 1, 0, 0, 0), 3, 6); */
+  /* assertEqualsD(euler3(13195, 1, 0, 0, 0), 5, 6); */
+
+  /* double i, n = 600851475143; */
+  /* do { */
+  /*   i = euler3(n, 1, 0, 0, 0); */
+  /*   printf("%f\n", i); */
+  /*   n = n / i; */
+  /* } while (n != 1); */
+  
   printf("%f seconds\n", getElapsedSecondsSince(&start));
   return 0;
 }

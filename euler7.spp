@@ -1,0 +1,31 @@
+double euler7(double n)
+
+one = n ÷ n
+zero = one - one
+
+limit = one
+i = one
+count = zero
+
+iLoop:
+i += one
+j = one
+
+sqrtsd limit, i
+
+loop:
+j += one
+isPrime = limit < j
+isPrime ∧= one
+isPrime > zero ? done
+
+quotient = i ÷ j
+rounded = roundsd(quotient, 3)
+quotient ≠ rounded ? loop
+
+done:
+
+count += isPrime
+count < n ? iLoop
+
+return i

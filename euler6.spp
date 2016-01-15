@@ -1,0 +1,24 @@
+double euler6(double limit)
+
+one = limit ÷ limit
+zero = one - one
+two = one + one
+half = one ÷ two
+minus = one - two
+
+sumOfSquares = zero
+i = limit
+
+loop:
+square = i × i
+sumOfSquares += square
+i += minus
+i > zero ? loop
+
+sum = limit + one
+sum ×= limit
+sum ×= half
+sum ×= sum
+
+diff = sum - sumOfSquares
+return diff
